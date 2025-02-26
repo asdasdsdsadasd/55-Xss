@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .main-text {
+            font-size: 100px;
+            font-weight: bold;
+            color: #00FF00;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .search-box {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .search-box input {
+            background-color: transparent;
+            border: 2px solid #00FF00;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            width: 300px;
+            outline: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input::placeholder {
+            color: #00FF00;
+            font-style: italic;
+        }
+
+        .search-box input:focus {
+            border-color: #00CC00;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: block;
+            z-index: -2;
+        }
+
+        .dot {
+            position: absolute;
+            background-color: rgba(0, 255, 0, 0.6);
+            border-radius: 50%;
+            animation: moveDot 4s infinite ease-in-out;
+        }
+
+        @keyframes moveDot {
+            0% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(200px) translateY(200px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    <div class="container">
+        <h1 class="main-text">55</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Enter Google Search Here" onfocus="clearText()" />
+        </div>
+    </div>
+
+    <div class="dots"></div>
+
+    <script>
+        // Function to clear the input field on focus
+        function clearText() {
+            document.getElementById('searchInput').value = '';
+        }
+
+        // Generate multiple moving dots
+        const numDots = 20; // Adjust the number of dots
+        const dotsContainer = document.querySelector('.dots');
+
+        for (let i = 0; i < numDots; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+
+            // Random size for each dot
+            const size = Math.random() * (30 - 10) + 0.2; // Dot size between 10px and 30px
+            dot.style.width = `${size}px`;
+            dot.style.height = `${size}px`;
+
+            // Random position for each dot
+            dot.style.top = `${Math.random() * window.innerHeight}px`;
+            dot.style.left = `${Math.random() * window.innerWidth}px`;
+
+            // Random animation delay
+            const delay = Math.random() * 2; // Random delay between 0 and 2 seconds
+            dot.style.animationDelay = `${delay}s`;
+
+            dotsContainer.appendChild(dot);
+        }
+    </script>
+
+</body>
+</html>
